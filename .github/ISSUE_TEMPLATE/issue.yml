@@ -1,0 +1,61 @@
+name: Issue
+description: Report anything: a bug, a missing feature, a question, an oddity.
+labels: ["triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file. Fill in what you have, leave the rest blank.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What's going on?
+      description: Describe the problem, the missing feature, or the question. Concrete is better than abstract.
+    validations:
+      required: true
+
+  - type: input
+    id: module-version
+    attributes:
+      label: Module version
+      description: Top of Foundry's *Module Management* dialog.
+      placeholder: "1.0.1"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: foundry-version
+    attributes:
+      label: Foundry version
+      options:
+        - V14 (any 14.x)
+        - V13 (any 13.x)
+        - Other (specify in *Anything else?*)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: system
+    attributes:
+      label: Game system
+      options:
+        - Pathfinder 2e (pf2e)
+        - Starfinder 2e (sf2e)
+        - Both
+        - Neither / not system-specific
+    validations:
+      required: true
+
+  - type: textarea
+    id: log-and-console
+    attributes:
+      label: Conversion log and console errors
+      description: If this is about an import, paste the in-Foundry conversion log here. Add any red errors from the browser console (F12). If neither applies, leave blank.
+      render: text
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Screenshots, character source (PFS, homebrew), version details, links, anything that helps.
