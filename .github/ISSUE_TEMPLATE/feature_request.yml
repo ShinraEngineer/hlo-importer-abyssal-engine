@@ -1,0 +1,51 @@
+name: Feature request
+description: Suggest a new feature, improvement, or supported content for the importer.
+title: "[Feature] "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. I read every request even if I cannot act on it right away.
+
+  - type: dropdown
+    id: system
+    attributes:
+      label: Game system this affects
+      options:
+        - Pathfinder 2e (pf2e)
+        - Starfinder 2e (sf2e)
+        - Both
+        - Neither (general UX or workflow)
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Describe the pain point or missing capability in your own words. Focus on the outcome, not the implementation.
+      placeholder: |
+        When I import a character with X, I have to manually do Y every time, because the module does not Z.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like to see?
+      description: How would you like it to work? A rough sketch is fine.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or workarounds
+      description: Anything you have already tried, or any workaround that gets you partway.
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Example character, screenshots, links to relevant Foundry or Paizo content, anything that helps me see what you are seeing.

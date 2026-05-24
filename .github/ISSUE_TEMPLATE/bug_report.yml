@@ -1,0 +1,95 @@
+name: Bug report
+description: Report a problem importing a HeroLab Online character into Foundry VTT.
+title: "[Bug] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. The more of the fields below you can fill in, the faster I can reproduce and fix it.
+
+  - type: input
+    id: module-version
+    attributes:
+      label: Module version
+      description: Found at the top of Foundry's *Module Management* dialog, or in the module manifest.
+      placeholder: "1.0.1"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: foundry-version
+    attributes:
+      label: Foundry version
+      options:
+        - V14 (any 14.x)
+        - V13 (any 13.x)
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: system
+    attributes:
+      label: Game system
+      options:
+        - Pathfinder 2e (pf2e)
+        - Starfinder 2e (sf2e)
+        - Both
+    validations:
+      required: true
+
+  - type: dropdown
+    id: input-mode
+    attributes:
+      label: Input mode
+      description: How were you importing the character when the bug happened?
+      options:
+        - Element token (HLO Public API)
+        - Pasted JSON
+        - Uploaded JSON file
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the problem. What did you expect, what did you see instead?
+      placeholder: |
+        I imported character X and expected Y. Instead I got Z.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the actor sheet
+        2. Click *Abyssal-Engine Import*
+        3. Paste element token
+        4. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: conversion-log
+    attributes:
+      label: Conversion log
+      description: The module writes a conversion log on every import. Paste it here, or attach the file. If it contains anything you do not want public, say so and I will follow up privately.
+      render: text
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Browser console errors
+      description: Open Foundry's developer console (F12) and copy any red errors that appeared during the import.
+      render: text
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Screenshots, character source (PFS, homebrew, third party), unusual ancestry or class, anything that might be relevant.
