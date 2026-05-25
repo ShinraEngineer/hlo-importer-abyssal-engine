@@ -1,5 +1,5 @@
 name: Issue
-description: Report anything: a bug, a missing feature, a question, an oddity.
+description: Report a bug, a missing feature, a question, or anything else.
 labels: ["triage"]
 body:
   - type: markdown
