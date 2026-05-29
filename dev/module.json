@@ -1,0 +1,63 @@
+{
+  "id": "hlo-importer-abyssal-engine-dev",
+  "title": "HeroLab to Foundry - Powered by Abyssal Engine (DEV)",
+  "description": "Import HeroLab Online characters into Foundry VTT for Pathfinder 2e and Starfinder 2e. A modernized successor to the original hlo-importer, with the conversion logic running entirely inside the module (no third-party hosted service in the critical path). Three input modes feed the same parser: element token via HLO Public API, pasted JSON, and uploaded JSON file. Part of the Abyssal Engine family.",
+  "version": "1.0.3_devBuild",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "14.361",
+    "maximum": "14"
+  },
+  "authors": [
+    {
+      "name": "Shinra CC",
+      "url": "https://shinra.cc",
+      "email": "admin@shinra.cc",
+      "discord": "shinra.engineer",
+      "ko-fi": "adamantiteadventurer"
+    }
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "pf2e",
+        "type": "system"
+      },
+      {
+        "id": "sf2e",
+        "type": "system"
+      }
+    ]
+  },
+  "esmodules": [
+    "src/main.js"
+  ],
+  "styles": [
+    "styles/import-dialog.css"
+  ],
+  "languages": [],
+  "packs": [],
+  "media": [
+    {
+      "type": "icon",
+      "url": "icons/abyssal-engine-icon.png"
+    },
+    {
+      "type": "cover",
+      "url": "assets/abyssal-engine-banner.png"
+    }
+  ],
+  "url": "https://shinra.cc/hlo-importer-abyssal-engine/",
+  "manifest": "https://raw.githubusercontent.com/ShinraEngineer/hlo-importer-abyssal-engine/main/dev/module.json",
+  "download": "https://raw.githubusercontent.com/ShinraEngineer/hlo-importer-abyssal-engine/main/dev/hlo-ab-v1.0.3_devBuild.zip",
+  "readme": "https://shinra.cc/hlo-importer-abyssal-engine/readme/",
+  "bugs": "https://github.com/ShinraEngineer/hlo-importer-abyssal-engine/issues",
+  "changelog": "https://shinra.cc/hlo-importer-abyssal-engine/changelog/",
+  "license": "MIT",
+  "flags": {
+    "hlo-importer-abyssal-engine-dev": {
+      "allowBugReporter": true,
+      "brand": "Abyssal Engine"
+    }
+  }
+}
