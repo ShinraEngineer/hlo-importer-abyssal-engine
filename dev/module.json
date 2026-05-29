@@ -2,7 +2,7 @@
   "id": "hlo-importer-abyssal-engine-dev",
   "title": "HeroLab to Foundry - Powered by Abyssal Engine (DEV)",
   "description": "Import HeroLab Online characters into Foundry VTT for Pathfinder 2e and Starfinder 2e. A modernized successor to the original hlo-importer, with the conversion logic running entirely inside the module (no third-party hosted service in the critical path). Three input modes feed the same parser: element token via HLO Public API, pasted JSON, and uploaded JSON file. Part of the Abyssal Engine family.",
-  "version": "1.0.3_devBuild",
+  "version": "1.0.4_devBuild",
   "compatibility": {
     "minimum": "13",
     "verified": "14.361",
@@ -49,7 +49,7 @@
   ],
   "url": "https://shinra.cc/hlo-importer-abyssal-engine/",
   "manifest": "https://raw.githubusercontent.com/ShinraEngineer/hlo-importer-abyssal-engine/main/dev/module.json",
-  "download": "https://raw.githubusercontent.com/ShinraEngineer/hlo-importer-abyssal-engine/main/dev/hlo-ab-v1.0.3_devBuild.zip",
+  "download": "https://raw.githubusercontent.com/ShinraEngineer/hlo-importer-abyssal-engine/main/dev/hlo-ab-v1.0.4_devBuild.zip",
   "readme": "https://shinra.cc/hlo-importer-abyssal-engine/readme/",
   "bugs": "https://github.com/ShinraEngineer/hlo-importer-abyssal-engine/issues",
   "changelog": "https://shinra.cc/hlo-importer-abyssal-engine/changelog/",
