@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Brand home (downloads, changelog, install instructions)
+    url: https://shinra.cc/hlo-importer-abyssal-engine/
+    about: Download the module, read the changelog, see install instructions.
+  - name: Discord direct message
+    url: https://discordapp.com/users/310193940106313729
+    about: Reach me directly on Discord as shinra.engineer. Good for quick questions and live troubleshooting.
+  - name: Ko-Fi
+    url: https://ko-fi.com/adamantiteadventurer
+    about: Support continued development. Appreciated, not required.
