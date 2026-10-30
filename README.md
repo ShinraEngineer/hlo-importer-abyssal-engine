@@ -16,7 +16,7 @@
 
 ## About this repository
 
-This repository is the public home for bug reports and feature requests for the **HeroLab to Foundry (Powered by Abyssal Engine)** Foundry VTT module. The module itself is distributed through [shinra.cc](https://shinra.cc/hlo-importer-abyssal-engine/) and the Foundry package registry. Source files are not hosted here.
+This repository is the public home for bug reports and feature requests for the **HeroLab to Foundry (Powered by Abyssal Engine)** Foundry VTT module. The module manifest and release zips are served from this repository (`module.json` and `releases/`), with [shinra.cc](https://shinra.cc/hlo-importer-abyssal-engine/) carrying the landing page, readme, and changelog. Source files are not hosted here.
 
 If you found a problem or have an idea, please open a GitHub issue using the templates provided. That is the fastest way for me to see it and act on it.
 
@@ -34,7 +34,7 @@ The conversion logic runs entirely inside the module. There is no third-party ho
 
 | | |
 |---|---|
-| **Module manifest URL** | `https://shinra.cc/hlo-importer-abyssal-engine/module.json` |
+| **Module manifest URL** | `https://raw.githubusercontent.com/ShinraEngineer/hlo-importer-abyssal-engine/main/module.json` |
 | **Foundry listing** | submitted and pending review, username `shokotsu` |
 | **Foundry compat** | V14 verified (14.361), V13 supported as a fallback |
 | **Target systems** | `pf2e`, `sf2e` |
