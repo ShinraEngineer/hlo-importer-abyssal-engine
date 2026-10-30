@@ -1,6 +1,9 @@
 # Author:   Shinra CC
 # Date:     2026-10-30
-# Revision: 0.1.0
+# Revision: 0.1.1
+#           - 0.1.1: Final verification lists draft and prerelease flags; isLatest
+#             is not a field gh release view exposes, and the first run failed
+#             on that line after the release itself was created.
 #           - 0.1.0: Creates or refreshes the GitHub Release for a version
 #             tag from the files already committed to this repository:
 #             releases/hlo-ab-v<version>.zip, the root module.json, and the
@@ -76,4 +79,4 @@ jobs:
               gh release create "${TAG}" "${ZIP}" module.json --repo "${GITHUB_REPOSITORY}" --title "${TAG}" --generate-notes --latest --target "${GITHUB_SHA}"
             fi
           fi
-          gh release view "${TAG}" --repo "${GITHUB_REPOSITORY}" --json tagName,name,isLatest,assets --jq '{tag: .tagName, name: .name, latest: .isLatest, assets: [.assets[].name]}'
+          gh release view "${TAG}" --repo "${GITHUB_REPOSITORY}" --json tagName,name,isDraft,isPrerelease,assets --jq '{tag: .tagName, name: .name, draft: .isDraft, prerelease: .isPrerelease, assets: [.assets[].name]}'
