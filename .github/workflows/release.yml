@@ -1,0 +1,79 @@
+# Author:   Shinra CC
+# Date:     2026-10-30
+# Revision: 0.1.0
+#           - 0.1.0: Creates or refreshes the GitHub Release for a version
+#             tag from the files already committed to this repository:
+#             releases/hlo-ab-v<version>.zip, the root module.json, and the
+#             notes in releases/notes/v<version>.md (auto-generated notes
+#             when that file is absent). Runs on a pushed v* tag, or by hand
+#             with a tag name, in which case the tag is created at the
+#             dispatched commit (main by default) if it does not exist yet.
+#             Idempotent: an existing release has its notes and assets
+#             replaced rather than failing.
+
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Version tag to release, for example v1.0.6 (created at this branch's head when it does not exist)"
+        type: string
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: GitHub Release ${{ github.event.inputs.tag || github.ref_name }}
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+    steps:
+      # On a tag push this checks out the tag; on a manual run, the branch
+      # the run was started from (main), which is where the tag is created.
+      - uses: actions/checkout@v4
+
+      - name: Check the tag against module.json and the committed zip
+        run: |
+          set -euo pipefail
+          VERSION="${TAG#v}"
+          MANIFEST_VERSION="$(python3 -c "import json; print(json.load(open('module.json'))['version'])")"
+          ZIP="releases/hlo-ab-v${VERSION}.zip"
+          echo "tag=${TAG} version=${VERSION} module.json=${MANIFEST_VERSION} zip=${ZIP}"
+          if [[ "${MANIFEST_VERSION}" != "${VERSION}" ]]; then
+            echo "module.json carries ${MANIFEST_VERSION}, not ${VERSION}. Publish the manifest first." >&2
+            exit 1
+          fi
+          if [[ ! -f "${ZIP}" ]]; then
+            echo "${ZIP} is not committed. Publish the release zip first." >&2
+            exit 1
+          fi
+          unzip -l "${ZIP}" | tail -n 3
+          echo "VERSION=${VERSION}" >> "${GITHUB_ENV}"
+          echo "ZIP=${ZIP}" >> "${GITHUB_ENV}"
+
+      - name: Create or refresh the release
+        run: |
+          set -euo pipefail
+          NOTES="releases/notes/v${VERSION}.md"
+          if gh release view "${TAG}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            echo "Release ${TAG} exists; refreshing notes and assets."
+            if [[ -f "${NOTES}" ]]; then
+              gh release edit "${TAG}" --repo "${GITHUB_REPOSITORY}" --title "${TAG}" --notes-file "${NOTES}" --latest
+            else
+              gh release edit "${TAG}" --repo "${GITHUB_REPOSITORY}" --title "${TAG}" --latest
+            fi
+            gh release upload "${TAG}" "${ZIP}" module.json --repo "${GITHUB_REPOSITORY}" --clobber
+          else
+            if [[ -f "${NOTES}" ]]; then
+              gh release create "${TAG}" "${ZIP}" module.json --repo "${GITHUB_REPOSITORY}" --title "${TAG}" --notes-file "${NOTES}" --latest --target "${GITHUB_SHA}"
+            else
+              gh release create "${TAG}" "${ZIP}" module.json --repo "${GITHUB_REPOSITORY}" --title "${TAG}" --generate-notes --latest --target "${GITHUB_SHA}"
+            fi
+          fi
+          gh release view "${TAG}" --repo "${GITHUB_REPOSITORY}" --json tagName,name,isLatest,assets --jq '{tag: .tagName, name: .name, latest: .isLatest, assets: [.assets[].name]}'
