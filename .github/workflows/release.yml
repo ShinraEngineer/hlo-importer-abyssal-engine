@@ -5,9 +5,11 @@
 #             tag from the files already committed to this repository:
 #             releases/hlo-ab-v<version>.zip, the root module.json, and the
 #             notes in releases/notes/v<version>.md (auto-generated notes
-#             when that file is absent). Runs on a pushed v* tag or by hand
-#             with a tag name. Idempotent: an existing release has its notes
-#             and assets replaced rather than failing.
+#             when that file is absent). Runs on a pushed v* tag, or by hand
+#             with a tag name, in which case the tag is created at the
+#             dispatched commit (main by default) if it does not exist yet.
+#             Idempotent: an existing release has its notes and assets
+#             replaced rather than failing.
 
 name: release
 
@@ -17,7 +19,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Version tag to release, for example v1.0.6 (must already exist)"
+        description: "Version tag to release, for example v1.0.6 (created at this branch's head when it does not exist)"
         type: string
         required: true
 
@@ -32,9 +34,9 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       TAG: ${{ github.event.inputs.tag || github.ref_name }}
     steps:
+      # On a tag push this checks out the tag; on a manual run, the branch
+      # the run was started from (main), which is where the tag is created.
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.tag || github.ref_name }}
 
       - name: Check the tag against module.json and the committed zip
         run: |
@@ -69,9 +71,9 @@ jobs:
             gh release upload "${TAG}" "${ZIP}" module.json --repo "${GITHUB_REPOSITORY}" --clobber
           else
             if [[ -f "${NOTES}" ]]; then
-              gh release create "${TAG}" "${ZIP}" module.json --repo "${GITHUB_REPOSITORY}" --title "${TAG}" --notes-file "${NOTES}" --latest
+              gh release create "${TAG}" "${ZIP}" module.json --repo "${GITHUB_REPOSITORY}" --title "${TAG}" --notes-file "${NOTES}" --latest --target "${GITHUB_SHA}"
             else
-              gh release create "${TAG}" "${ZIP}" module.json --repo "${GITHUB_REPOSITORY}" --title "${TAG}" --generate-notes --latest
+              gh release create "${TAG}" "${ZIP}" module.json --repo "${GITHUB_REPOSITORY}" --title "${TAG}" --generate-notes --latest --target "${GITHUB_SHA}"
             fi
           fi
           gh release view "${TAG}" --repo "${GITHUB_REPOSITORY}" --json tagName,name,isLatest,assets --jq '{tag: .tagName, name: .name, latest: .isLatest, assets: [.assets[].name]}'
